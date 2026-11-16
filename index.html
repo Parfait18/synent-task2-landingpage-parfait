@@ -3,9 +3,415 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zémi</title>
+    <title>Zémi: send a parcel across Cotonou in under an hour</title>
+    <meta
+      name="description"
+      content="Zémi sends a moto rider to your door in 15 minutes, delivers across Greater Cotonou and pays cash on delivery to your Mobile Money account the same evening."
+    />
+    <meta name="theme-color" content="#ffd21f" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Zémi: send a parcel across Cotonou in under an hour" />
+    <meta
+      property="og:description"
+      content="Pickup in 15 minutes, live tracking on WhatsApp, cash on delivery paid out the same evening."
+    />
   </head>
+
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- ================================================================ -->
+    <!-- Header                                                           -->
+    <!-- ================================================================ -->
+    <header class="bg-jersey">
+      <nav
+        class="container-page flex flex-wrap items-center justify-between gap-y-3 py-4"
+        aria-label="Main"
+      >
+        <a href="/" class="flex items-center gap-2 text-lagoon" aria-label="Zémi, home">
+          <svg class="size-9" viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="20" fill="#0b3a4e" />
+            <path
+              d="M12 13h16l-13 14h13"
+              fill="none"
+              stroke="#ffd21f"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="type-heading text-2xl">zémi</span>
+        </a>
+
+        <button
+          type="button"
+          class="btn md:hidden"
+          data-variant="ghost"
+          data-size="icon"
+          aria-controls="site-nav-panel"
+          aria-expanded="false"
+          data-nav-toggle
+        >
+          <span class="sr-only" data-nav-toggle-label>Open menu</span>
+          <svg
+            class="size-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M4 7h16M4 12h16M4 17h16" data-nav-icon="open" />
+            <path d="M6 6l12 12M18 6 6 18" data-nav-icon="close" hidden />
+          </svg>
+        </button>
+
+        <div id="site-nav-panel" class="site-nav-panel w-full md:w-auto" data-open="false">
+          <ul
+            class="flex flex-col gap-1 border-t border-lagoon/15 pt-3 pb-1 md:flex-row md:items-center md:gap-7 md:border-0 md:p-0"
+          >
+            <li><a class="block py-2 font-medium text-lagoon hover:underline" href="#features">Why Zémi</a></li>
+            <li><a class="block py-2 font-medium text-lagoon hover:underline" href="#how-it-works">How it works</a></li>
+            <li><a class="block py-2 font-medium text-lagoon hover:underline" href="#pricing">Prices</a></li>
+            <li class="pt-2 md:pt-0">
+              <a class="btn w-full md:w-auto" href="#waitlist">Join the waitlist</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <!-- ============================================================== -->
+      <!-- Hero: headline + live price estimator                          -->
+      <!-- ============================================================== -->
+      <section class="bg-jersey pb-16 md:pb-24" aria-labelledby="hero-title">
+        <div class="container-page grid items-center gap-12 pt-8 md:pt-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+          <div class="max-w-xl">
+            <h1 id="hero-title" class="type-display text-[clamp(2.6rem,7vw,4.6rem)] text-lagoon">
+              Send a parcel across Cotonou in under an hour.
+            </h1>
+            <p class="mt-6 max-w-[34rem] text-lg leading-relaxed text-lagoon/85">
+              A Zémi rider picks it up at your door within 15 minutes. You and your customer follow
+              the ride on WhatsApp, and the cash collected on delivery reaches your Mobile Money
+              account the same evening.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="btn" data-size="lg" href="#waitlist">Join the waitlist</a>
+              <a class="btn" data-variant="outline" data-size="lg" href="#pricing">See all prices</a>
+            </div>
+          </div>
+
+          <form
+            class="card gap-6 border-lagoon/10 p-6 shadow-[0_24px_48px_-24px_rgba(11,58,78,0.45)] sm:p-8"
+            aria-labelledby="quote-title"
+            data-quote-form
+            novalidate
+          >
+            <header>
+              <h2 id="quote-title" class="type-heading text-xl">Estimate a delivery</h2>
+              <p class="mt-1 text-sm text-muted-foreground">Prices in CFA francs, rider included.</p>
+            </header>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="field">
+                <label for="quote-pickup">Pickup</label>
+                <select id="quote-pickup" name="pickup" class="select w-full" data-zone-select="ganhi"></select>
+              </div>
+              <div class="field">
+                <label for="quote-dropoff">Drop-off</label>
+                <select id="quote-dropoff" name="dropoff" class="select w-full" data-zone-select="cadjehoun"></select>
+              </div>
+            </div>
+
+            <fieldset class="grid gap-3 sm:grid-cols-2">
+              <legend class="mb-2 text-sm font-medium">Parcel size</legend>
+              <label class="size-option">
+                <input class="input mt-0.5" type="radio" name="size" value="small" checked />
+                <span>
+                  <span class="block text-sm font-medium">Small</span>
+                  <span class="block text-sm text-muted-foreground">Fits in a backpack</span>
+                </span>
+              </label>
+              <label class="size-option">
+                <input class="input mt-0.5" type="radio" name="size" value="medium" />
+                <span>
+                  <span class="block text-sm font-medium">Medium</span>
+                  <span class="block text-sm text-muted-foreground">Up to a 25-litre box</span>
+                </span>
+              </label>
+            </fieldset>
+
+            <div class="rounded-lg bg-fog p-5" aria-live="polite" aria-atomic="true">
+              <p class="text-sm text-muted-foreground">Estimated price</p>
+              <output class="quote-price type-jersey mt-2" data-quote-price for="quote-pickup quote-dropoff">
+                1 600 FCFA
+              </output>
+              <dl class="mt-4 grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <dt class="text-muted-foreground">Delivery time</dt>
+                  <dd class="mt-0.5 text-base font-semibold" data-quote-minutes>about 40 min</dd>
+                </div>
+                <div>
+                  <dt class="text-muted-foreground">Road distance</dt>
+                  <dd class="mt-0.5 text-base font-semibold" data-quote-distance>6.7 km</dd>
+                </div>
+              </dl>
+            </div>
+
+            <p class="text-xs text-muted-foreground">
+              The rider confirms the final price before pickup. It never goes above this estimate.
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- Features                                                       -->
+      <!-- ============================================================== -->
+      <section id="features" class="py-20 md:py-28" aria-labelledby="features-title">
+        <div class="container-page grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+          <div class="max-w-md">
+            <h2 id="features-title" class="type-heading text-[clamp(2rem,4vw,2.75rem)]">
+              Made for people who sell on WhatsApp and Instagram
+            </h2>
+            <p class="mt-5 leading-relaxed text-muted-foreground">
+              You already have the customers. Zémi handles the part between your door and theirs, so
+              you can keep selling instead of crossing town.
+            </p>
+          </div>
+
+          <ul class="grid gap-x-10 gap-y-10 sm:grid-cols-2" role="list">
+            <li class="border-t-2 border-lagoon pt-5">
+              <svg class="size-7 text-lagoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+              </svg>
+              <h3 class="mt-4 text-lg font-semibold">Pickup within 15 minutes</h3>
+              <p class="mt-2 leading-relaxed text-muted-foreground">
+                A rider from the nearest stand comes to your door. No trip to the market, no waiting at
+                a junction.
+              </p>
+            </li>
+            <li class="border-t-2 border-lagoon pt-5">
+              <svg class="size-7 text-lagoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z" />
+                <circle cx="12" cy="9.5" r="2.5" />
+              </svg>
+              <h3 class="mt-4 text-lg font-semibold">Follow the ride on WhatsApp</h3>
+              <p class="mt-2 leading-relaxed text-muted-foreground">
+                You and your customer get a live tracking link as soon as the parcel leaves. There is
+                no app to install.
+              </p>
+            </li>
+            <li class="border-t-2 border-lagoon pt-5">
+              <svg class="size-7 text-lagoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="6" y="2.5" width="12" height="19" rx="2.5" />
+                <path d="M10 6h4M12 17.5h.01" />
+              </svg>
+              <h3 class="mt-4 text-lg font-semibold">Cash on delivery, paid out tonight</h3>
+              <p class="mt-2 leading-relaxed text-muted-foreground">
+                The rider collects the payment from your customer. The money reaches your MTN or Moov
+                Mobile Money account by 8 p.m.
+              </p>
+            </li>
+            <li class="border-t-2 border-lagoon pt-5">
+              <svg class="size-7 text-lagoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.6 7.5 10 4.3-1.4 7.5-5.4 7.5-10v-6L12 2.5Z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+              <h3 class="mt-4 text-lg font-semibold">Covered up to 50 000 FCFA</h3>
+              <p class="mt-2 leading-relaxed text-muted-foreground">
+                If a parcel is lost or damaged on the way, we refund its declared value within 48
+                hours.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- How it works: a real sequence, so numbered steps are justified  -->
+      <!-- ============================================================== -->
+      <section id="how-it-works" class="bg-fog py-20 md:py-28" aria-labelledby="how-title">
+        <div class="container-page">
+          <h2 id="how-title" class="type-heading max-w-2xl text-[clamp(2rem,4vw,2.75rem)]">
+            Three messages from order to payout
+          </h2>
+          <ol class="mt-14 grid gap-12 md:grid-cols-3 md:gap-10" role="list">
+            <li>
+              <span class="step-number type-jersey block" aria-hidden="true">1</span>
+              <h3 class="mt-4 text-lg font-semibold">Send us the order</h3>
+              <p class="mt-2 leading-relaxed text-muted-foreground">
+                Message the pickup address, your customer's number and the amount to collect.
+              </p>
+            </li>
+            <li>
+              <span class="step-number type-jersey block" aria-hidden="true">2</span>
+              <h3 class="mt-4 text-lg font-semibold">The rider picks it up</h3>
+              <p class="mt-2 leading-relaxed text-muted-foreground">
+                The rider confirms the price, takes a photo of the parcel and shares the tracking link.
+              </p>
+            </li>
+            <li>
+              <span class="step-number type-jersey block" aria-hidden="true">3</span>
+              <h3 class="mt-4 text-lg font-semibold">Your customer pays, you get paid</h3>
+              <p class="mt-2 leading-relaxed text-muted-foreground">
+                The customer pays the rider on delivery. You receive the amount minus the delivery fee
+                the same evening.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- Pricing: generated from the same estimator as the hero widget  -->
+      <!-- ============================================================== -->
+      <section id="pricing" class="py-20 md:py-28" aria-labelledby="pricing-title">
+        <div class="container-page grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+          <div class="max-w-md">
+            <h2 id="pricing-title" class="type-heading text-[clamp(2rem,4vw,2.75rem)]">
+              Prices from Ganhi
+            </h2>
+            <p class="mt-5 leading-relaxed text-muted-foreground">
+              One price per route, decided before the rider leaves. No fuel surcharge, no rush-hour
+              fee. Medium parcels add 300 FCFA.
+            </p>
+          </div>
+
+          <div class="table-container rounded-xl border border-border">
+            <table class="table">
+              <caption class="sr-only">Delivery prices and times for a small parcel picked up in Ganhi</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Drop-off</th>
+                  <th scope="col" class="text-right">Small parcel</th>
+                  <th scope="col" class="text-right">Delivery time</th>
+                </tr>
+              </thead>
+              <tbody data-pricing-rows>
+                <tr>
+                  <td colspan="3" class="text-muted-foreground">Prices load with JavaScript.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- Waitlist                                                       -->
+      <!-- ============================================================== -->
+      <section id="waitlist" class="bg-lagoon py-20 text-white md:py-28" aria-labelledby="waitlist-title">
+        <div class="container-page grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
+          <div class="max-w-md">
+            <h2 id="waitlist-title" class="type-display text-[clamp(2.2rem,5vw,3.4rem)]">
+              Zémi opens in January 2027
+            </h2>
+            <p class="mt-6 text-lg leading-relaxed text-white/80">
+              Leave your number and the neighbourhood you ship from. We open area by area, and the
+              first 200 merchants in each area get their first ten deliveries free.
+            </p>
+          </div>
+
+          <div class="card p-6 text-foreground sm:p-8" data-waitlist>
+            <form class="grid gap-5" data-waitlist-form novalidate>
+              <div class="field">
+                <label for="waitlist-name">Your name or shop name</label>
+                <input
+                  id="waitlist-name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  maxlength="60"
+                  required
+                  aria-describedby="waitlist-name-error"
+                />
+                <p id="waitlist-name-error" class="text-sm text-destructive" data-error-for="name" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="waitlist-phone">WhatsApp number</label>
+                <input
+                  id="waitlist-phone"
+                  name="phone"
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="tel"
+                  placeholder="01 97 00 00 00"
+                  maxlength="20"
+                  required
+                  aria-describedby="waitlist-phone-hint waitlist-phone-error"
+                />
+                <p id="waitlist-phone-hint" class="text-sm text-muted-foreground">
+                  10-digit Benin number starting with 01.
+                </p>
+                <p id="waitlist-phone-error" class="text-sm text-destructive" data-error-for="phone" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="waitlist-zone">You ship from</label>
+                <select
+                  id="waitlist-zone"
+                  name="zone"
+                  class="select w-full"
+                  required
+                  data-zone-select=""
+                  aria-describedby="waitlist-zone-error"
+                ></select>
+                <p id="waitlist-zone-error" class="text-sm text-destructive" data-error-for="zone" hidden></p>
+              </div>
+
+              <button type="submit" class="btn w-full" data-size="lg">Join the waitlist</button>
+              <p class="text-xs text-muted-foreground">
+                We only use your number to tell you when Zémi opens in your area.
+              </p>
+            </form>
+
+            <div class="alert" role="status" data-waitlist-success hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-palm" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" />
+                <path d="m8.5 12 2.5 2.5 4.5-5" />
+              </svg>
+              <h3>You're on the waitlist</h3>
+              <section data-waitlist-success-message></section>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================================================================ -->
+    <!-- Footer                                                           -->
+    <!-- ================================================================ -->
+    <footer class="bg-fog py-12">
+      <div class="container-page flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+        <div class="max-w-sm">
+          <p class="type-heading text-xl">zémi</p>
+          <p class="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Zémi is a fictional service designed for the Synent Technologies web development
+            internship. Prices and coverage are illustrative.
+          </p>
+        </div>
+        <nav aria-label="Footer">
+          <ul class="grid grid-cols-2 gap-x-10 gap-y-2 text-sm">
+            <li><a class="hover:underline" href="#features">Why Zémi</a></li>
+            <li><a class="hover:underline" href="#how-it-works">How it works</a></li>
+            <li><a class="hover:underline" href="#pricing">Prices</a></li>
+            <li><a class="hover:underline" href="#waitlist">Waitlist</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="container-page mt-10 border-t border-border pt-6 text-sm text-muted-foreground">
+        <p>© <span data-current-year>2026</span> Parfait Ahouanto. Code under the MIT licence.</p>
+      </div>
+    </footer>
+
     <script type="module" src="/src/scripts/main.js"></script>
   </body>
 </html>

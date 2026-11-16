@@ -1,3 +1,168 @@
+/*
+ * Zémi design system.
+ *
+ * Layering: Tailwind (utilities) → Basecoat (shadcn/ui components in plain
+ * CSS) → Zémi tokens → page-specific components. Basecoat reads the same CSS
+ * variables as shadcn/ui (--primary, --radius…), so overriding them here
+ * re-themes every Basecoat component at once.
+ *
+ * Palette, typography and layout rationale: docs/SPECIFICATION.md, section 5.
+ */
 @import 'tailwindcss';
 @import 'basecoat-css';
 @import '@fontsource-variable/archivo/wdth.css';
+
+@theme {
+  /* Yellow of the zémidjan riders' jerseys: the brand's one loud colour. */
+  --color-jersey: #ffd21f;
+  --color-jersey-deep: #f2bf00;
+  /* Cotonou lagoon: ink, primary actions, dark surfaces. */
+  --color-lagoon: #0b3a4e;
+  --color-lagoon-soft: #2c5a6e;
+  /* Palm green: confirmations only. */
+  --color-palm: #17714b;
+  --color-fog: #edf1f3;
+  /* Errors only. */
+  --color-signal: #b42318;
+
+  --font-sans: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #ffffff;
+  --foreground: var(--color-lagoon);
+  --card: #ffffff;
+  --card-foreground: var(--color-lagoon);
+  --popover: #ffffff;
+  --popover-foreground: var(--color-lagoon);
+  --primary: var(--color-lagoon);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-fog);
+  --secondary-foreground: var(--color-lagoon);
+  --muted: var(--color-fog);
+  --muted-foreground: var(--color-lagoon-soft);
+  --accent: var(--color-fog);
+  --accent-foreground: var(--color-lagoon);
+  --destructive: var(--color-signal);
+  --border: #d5dde2;
+  --input: #b9c6cd;
+  --ring: var(--color-lagoon);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Anchored sections must not hide under the header. */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-variation-settings: 'wdth' 100;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-lagoon);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /*
+   * Headlines use the expanded width of Archivo; numbers use the condensed
+   * width, like the registration numbers printed on riders' jerseys.
+   */
+  .type-display {
+    font-stretch: 118%;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .type-heading {
+    font-stretch: 112%;
+    font-weight: 750;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+
+  .type-jersey {
+    font-stretch: 62%;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    line-height: 0.85;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .skip-link {
+    @apply sr-only rounded-md bg-lagoon px-4 py-2 text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50;
+  }
+
+  /* Brand-coloured button for dark and yellow surfaces. */
+  .btn[data-variant='jersey'] {
+    @apply bg-jersey text-lagoon hover:bg-jersey-deep;
+  }
+
+  /* --- Header & mobile navigation -------------------------------------- */
+  .site-nav-panel {
+    @apply hidden;
+  }
+
+  .site-nav-panel[data-open='true'] {
+    @apply block;
+  }
+
+  @media (width >= 48rem) {
+    .site-nav-panel,
+    .site-nav-panel[data-open='true'] {
+      @apply contents;
+    }
+  }
+
+  /* --- Quote widget ------------------------------------------------------ */
+  .quote-price {
+    @apply block text-[clamp(4rem,14vw,6.5rem)] text-lagoon;
+  }
+
+  /* The only motion on the page, and it answers the visitor's own action. */
+  .quote-price[data-changed='true'] {
+    animation: price-tick 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  @keyframes price-tick {
+    from {
+      transform: translateY(0.12em);
+      opacity: 0.35;
+    }
+  }
+
+  .size-option {
+    @apply flex cursor-pointer items-start gap-3 rounded-lg border border-border p-3 transition-colors has-[:checked]:border-lagoon has-[:checked]:bg-fog;
+  }
+
+  /* --- Steps --------------------------------------------------------------- */
+  .step-number {
+    @apply text-[5.5rem] text-jersey-deep;
+    -webkit-text-stroke: 2px var(--color-lagoon);
+  }
+}
