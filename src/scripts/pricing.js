@@ -97,6 +97,16 @@ export function estimateDelivery(pickup, dropoff, size = 'small') {
 const fcfaFormatter = new Intl.NumberFormat('fr-FR');
 
 /**
+ * Groups thousands the way amounts are written in Benin: "1 400".
+ *
+ * @param {number} amount
+ * @returns {string}
+ */
+export function formatAmount(amount) {
+  return fcfaFormatter.format(amount);
+}
+
+/**
  * Formats an amount the way prices are written in Benin: "1 400 FCFA".
  * Intl uses a narrow no-break space as group separator, which keeps the
  * number on one line.
@@ -105,5 +115,5 @@ const fcfaFormatter = new Intl.NumberFormat('fr-FR');
  * @returns {string}
  */
 export function formatFcfa(amount) {
-  return `${fcfaFormatter.format(amount)} FCFA`;
+  return `${formatAmount(amount)} FCFA`;
 }

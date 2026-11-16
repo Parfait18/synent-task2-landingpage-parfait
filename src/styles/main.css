@@ -58,8 +58,9 @@
   }
 
   body {
+    /* Width is driven by font-stretch only. Setting font-variation-settings
+       here would be inherited and silently override every font-stretch below. */
     @apply bg-background font-sans text-foreground antialiased;
-    font-variation-settings: 'wdth' 100;
   }
 
   :focus-visible {
@@ -141,7 +142,16 @@
 
   /* --- Quote widget ------------------------------------------------------ */
   .quote-price {
-    @apply block text-[clamp(4rem,14vw,6.5rem)] text-lagoon;
+    @apply flex items-baseline gap-2 whitespace-nowrap text-lagoon;
+  }
+
+  .quote-price-amount {
+    @apply text-[clamp(4.5rem,18vw,7.5rem)];
+  }
+
+  .quote-price-currency {
+    @apply text-2xl font-bold;
+    font-stretch: 100%;
   }
 
   /* The only motion on the page, and it answers the visitor's own action. */

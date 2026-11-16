@@ -90,9 +90,9 @@
       <!-- Hero: headline + live price estimator                          -->
       <!-- ============================================================== -->
       <section class="bg-jersey pb-16 md:pb-24" aria-labelledby="hero-title">
-        <div class="container-page grid items-center gap-12 pt-8 md:pt-14 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
-          <div class="max-w-xl">
-            <h1 id="hero-title" class="type-display text-[clamp(2.6rem,7vw,4.6rem)] text-lagoon">
+        <div class="container-page grid items-center gap-12 pt-8 md:pt-14 lg:grid-cols-[1.25fr_1fr] lg:gap-14">
+          <div class="max-w-2xl">
+            <h1 id="hero-title" class="type-display text-[clamp(2.5rem,6vw,4.25rem)] text-lagoon">
               Send a parcel across Cotonou in under an hour.
             </h1>
             <p class="mt-6 max-w-[34rem] text-lg leading-relaxed text-lagoon/85">
@@ -112,10 +112,10 @@
             data-quote-form
             novalidate
           >
-            <header>
+            <div>
               <h2 id="quote-title" class="type-heading text-xl">Estimate a delivery</h2>
               <p class="mt-1 text-sm text-muted-foreground">Prices in CFA francs, rider included.</p>
-            </header>
+            </div>
 
             <div class="grid gap-4 sm:grid-cols-2">
               <div class="field">
@@ -148,8 +148,9 @@
 
             <div class="rounded-lg bg-fog p-5" aria-live="polite" aria-atomic="true">
               <p class="text-sm text-muted-foreground">Estimated price</p>
-              <output class="quote-price type-jersey mt-2" data-quote-price for="quote-pickup quote-dropoff">
-                1 600 FCFA
+              <output class="quote-price mt-2" data-quote-price for="quote-pickup quote-dropoff">
+                <span class="quote-price-amount type-jersey" data-quote-amount>1 600</span>
+                <span class="quote-price-currency">FCFA</span>
               </output>
               <dl class="mt-4 grid grid-cols-2 gap-4 text-sm">
                 <div>
